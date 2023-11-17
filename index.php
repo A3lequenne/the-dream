@@ -8,15 +8,16 @@
     </head>
     <body>
         <div class="container">
-            <h1 class="title">The Dream</h1>
-        <div class="amount_to_convert">
-            <label>Amount : </label>
-            <input type="text" placeholder="Amount of thunes" name="amount" id="amount"/>
-        </div>
+        <h1 class="title">The Dream</h1>
+        <div class="center">
         <form method="post" id="convert_currencies">
+            <div class="amount_to_convert">
+                 <label>Amount : </label>
+                <input type="text" placeholder="Amount of thunes" name="amount" id="amount"/>
+            </div>
             <div class="forms">
                 <div class="c_from">
-                <label>From</label>
+                <label>From :</label>
                 <select name="currency_from">
                     <option value="JPY">Japanese Yen</option>
                     <option value="USD" selected="1">US Dollar</option>
@@ -26,7 +27,7 @@
                 </div>
 
                 <div class="c_to">
-                <label>To</label>
+                <label>To :</label>
                 <select name="currency_to">
                     <option value="JPY" selected="1">Japanese Yen</option>
                     <option value="USD">US Dollar</option>
@@ -35,65 +36,70 @@
                 </select>
                 </div>
             </div>
+            <button type="submit" name="convert" id="convert" class="convert_button">Convert</button>    
         </form>
-
-        <div><button type="submit" name="convert" id="convert" class="convert_button">Convert</button></div>
         <?php
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 $amount = $_POST['amount'];
                 $currency_from = $_POST['currency_from'];
                 $currency_to = $_POST['currency_to'];
-
-                if ($currency_from == 'JPY') {
-                    if ($currency_to == 'USD') {
-                        $res = $amount * 0.0066;
+                
+                if (!$amount) 
+                echo ('<div> <p class="result">Please enter an amount to convert</p></div>');
+                else {
+                    if ($currency_from == 'JPY') {
+                        if ($currency_to == 'USD') {
+                            $res = $amount * 0.0066;
+                        }
+                        if ($currency_to == 'KRW') {
+                            $res = $amount * 8.55;
+                        }
+                        if ($currency_to == 'EUR') {
+                            $res = $amount * 0.0061;
+                        }
                     }
-                    if ($currency_to == 'KRW') {
-                        $res = $amount * 8.55;
+                    else if ($currency_from == 'USD') {
+                        if ($currency_to == 'JPY') {
+                            $res = $amount * 151.28;
+                        }
+                        if ($currency_to == 'KRW') {
+                            $res = $amount * 1293.18;
+                        }
+                        if ($currency_to == 'EUR') {
+                            $res = $amount * 0.92;
+                        }
                     }
-                    if ($currency_to == 'EUR') {
-                        $res = $amount * 0.0061;
+                    else if ($currency_from == 'KRW') {
+                        if ($currency_to == 'JPY') {
+                            $res = $amount * 0.12;
+                        }
+                        if ($currency_to == 'USD') {
+                            $res = $amount * 0.00077;
+                        }
+                        if ($currency_to == 'EUR') {
+                            $res = $amount * 0.00071;
+                        }
                     }
+                    else if ($currency_from == 'EUR') {
+                        if ($currency_to == 'JPY') {
+                            $res = $amount * 164.05;
+                        }
+                        if ($currency_to == 'USD') {
+                            $res = $amount * 1.08;
+                        }
+                        if ($currency_to == 'KRW') {
+                            $res = $amount * 1402.60;
+                        }
+                    } 
+                    echo ('<div> <p class="result">' . $amount." ".$currency_from." is ".$res." ".$currency_to . "</p></div>");
                 }
-                else if ($currency_from == 'USD') {
-                    if ($currency_to == 'JPY') {
-                        $res = $amount * 151.28;
-                    }
-                    if ($currency_to == 'KRW') {
-                        $res = $amount * 1293.18;
-                    }
-                    if ($currency_to == 'EUR') {
-                        $res = $amount * 0.92;
-                    }
-                }
-                else if ($currency_from == 'KRW') {
-                    if ($currency_to == 'JPY') {
-                        $res = $amount * 0.12;
-                    }
-                    if ($currency_to == 'USD') {
-                        $res = $amount * 0.00077;
-                    }
-                    if ($currency_to == 'EUR') {
-                        $res = $amount * 0.00071;
-                    }
-                }
-                else if ($currency_from == 'EUR') {
-                    if ($currency_to == 'JPY') {
-                        $res = $amount * 164.05;
-                    }
-                    if ($currency_to == 'USD') {
-                        $res = $amount * 1.08;
-                    }
-                    if ($currency_to == 'KRW') {
-                        $res = $amount * 1402.60;
-                    }
-                }?><div> <p class="result">
-                <?php echo($amount." ".$currency_from." is ".$res." ".$currency_to); ?> </p></div></div> <?php
             }
         ?>
+        </div>
+        </div>
         <?php
-            /* I started with an API but the conversion rates werent working all the time on the one I chose so I decided to not use an API. I'm glad I got to see how it worked tho
+            /* I started with an API but the conversion rates werent working all the time (some currencies work, some dont) on the one I chose so I decided to not use an API. I'm glad I got to see how it worked tho
             function getCurrencyConvert() {
 	            $curl = curl_init();
 

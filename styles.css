@@ -1,35 +1,69 @@
+@font-face {
+    font-family: 'theDream';
+    src: url('./font_the_dream/TrenchThin-16R0.otf') format('opentype'); /* Replace with your font file and format */
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
+    font-size: 30px;
     width: 100%;
     height: 100%;
     background-color: #222222;
-    color: whitesmoke;
+    color: white;
     margin: 0;
     display: flex;
     justify-content: center;
+    background-image: url(./bg_the_dream.png);
+    font-family: 'theDream', sans-serif;
 }
 
 .container {
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
     height: 100vh;
-    gap: 20px;
     width: 50%;
 }
 
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 50px;
+    width: 100%;
+}
+
 .title {
-    background-color: #4E4E4E;
     padding: 15px;
-    border-radius: 5px;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-color: rgba(6,6,16,.7);
+    margin-bottom: 100px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(6,6,16,.7);
+    border-radius: 25px;
+    padding: 40px 30px;
+    gap: 10px;
+    width: 60%;
 }
 
 .forms {
-    width: 100%;
     display: flex;
     justify-content: space-around;
+    width: 100%;
 }
 
-.c_form {
-    margin-right: 10px;
+.result {
+    background-color: rgba(6,6,16,.7);
+    border-radius: 25px;
+    padding: 30px;
 }
